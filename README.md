@@ -28,14 +28,13 @@ cd /home/beams/ABREWE/usr/pvaPy/pvapy/cli
 ```
 
 - edgebragg
-
+  - might need a conda environment for this to work properly - if so see below 
   - need to set nproc to 1 for uniqueid to work with BraggNNViewer
 ```sh
 Ex (specific to my home directory version):
   export PYTHONPATH=/home/beams/ABREWE/usr/edgeBragg/
   
-  /home/beams/ABREWE/miniconda3/envs/simEnv/bin/python
-  pvapy-hpc-consumer     --input-channel=1id-ADSim:Pva1:Image   
+  pvapy-hpc-consumer     --input-channel=abrewe:image:adsim   
   --output-channel=abrewe:*:output     --control-channel=abrewe:*:control     
   --status-channel=abrewe:*:status     
   --processor-file=/home/beams/ABREWE/usr/edgeBragg/braggNNInferImageProcessor.py     
@@ -59,4 +58,15 @@ $ pvapy-hpc-consumer \
 ```
 ![example](https://user-images.githubusercontent.com/106117997/214919115-b9ec8672-4dbd-4caf-a7ad-deb88fd11923.png)
 
+<ins>CONDA ENVIRONMENT</ins> (just a list of what I have in my simEnv conda environment)
+
+Pytorch  
+Pyyaml  
+Pvapy   
+Numpy   
+Fabio   
+OpenCV/cv2
+PIL/pillow   
+H5py   
+  
 
