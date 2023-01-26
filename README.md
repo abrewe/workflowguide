@@ -3,7 +3,7 @@ How to run (edgeBragg, adSimServer BraggNNViewer)
 to use python in my conda environment 
 /home/beams/ABREWE/miniconda3/envs/simEnv/bin/python
 
-- BraggNNViewer (INSERT PICTURE)  
+- BraggNNViewer  
   - log option sometimes results in messed up contrast. 
   - Reset min and max peak intensity after using log (new max values might be too small)
   - Can put a usercalc pv name into PV Name: sends % of the patches from one frame that were 
@@ -57,5 +57,6 @@ $ pvapy-hpc-consumer \
     --report-period=10 \
     --log-level=DEBUG
 ```
+![example](https://user-images.githubusercontent.com/106117997/214919115-b9ec8672-4dbd-4caf-a7ad-deb88fd11923.png)
 
 
