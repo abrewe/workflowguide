@@ -58,15 +58,5 @@ $ pvapy-hpc-consumer \
 ```
 ![example](https://user-images.githubusercontent.com/106117997/214919115-b9ec8672-4dbd-4caf-a7ad-deb88fd11923.png)
 
-<ins>CONDA ENVIRONMENT</ins> (just a list of what I have in my simEnv conda environment)
-
-Pytorch  
-Pyyaml  
-Pvapy   
-Numpy   
-Fabio   
-OpenCV/cv2
-PIL/pillow   
-H5py   
   
 
