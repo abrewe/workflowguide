@@ -1,4 +1,4 @@
-How to run (BraggNNViewer, adSimServer, edgeBragg)
+BraggNNViewer, adSimServer, edgeBragg
 -
 to use python in my simEmv conda environment 
 /home/beams/ABREWE/miniconda3/envs/simEnv/bin/python
