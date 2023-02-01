@@ -1,15 +1,17 @@
-How to run (edgeBragg, adSimServer BraggNNViewer)
+How to run (BraggNNViewer, adSimServer, edgeBragg)
 -
-to use python in my conda environment 
+to use python in my simEmv conda environment 
 /home/beams/ABREWE/miniconda3/envs/simEnv/bin/python
 
 - BraggNNViewer  
-  - log option sometimes results in messed up contrast. 
+  - Drops frames from edgebragg pretty badly... not sure why yet
+  - Montage Sizing: "user set", with Montage Dim field set to n, makes an n x n montage.
+  - Dynamic Sizing option does not work - ignore for now.
+  - log option occasionally results in messed up contrast. 
   - Reset min and max peak intensity after using log (new max values might be too small)
   - Can put a usercalc pv name into PV Name: sends % of the patches from one frame that were 
-  - located in ABREWE home directory ImageJ, run ImageJ there to access plugin (in folder EPICS_areaDetector) 
-  - Montage Sizing: "user set", with Montage Dim field set to n, makes an n x n montage. 
-  - Looses frames.
+  - located in ABREWE home directory ImageJ, run ImageJ there to access plugin (in folder EPICS_areaDetector)  
+ 
 ```shell
      cd home/beams/ABREWE/ImageJProjects/ImageJ
      
@@ -35,18 +37,23 @@ cd /home/beams/ABREWE/usr/pvaPy/pvapy/cli
 ```
 
 - edgebragg
-  - might need a conda environment for this to work properly - if so see below 
-  - need to set nproc to 1 for uniqueid to work with BraggNNViewer
+  - I'm sure there is a way to run this without needing a conda environment but for now, you may need to create a clone of my simEnv conda env. There is a yml file that can be used to create a conda environment with all the packages I have in simEnv. (/home/beams/ABREWE/miniconda3/envs/environment_simEnv.yml) will create a conda environment called eb_adsim, change name in yml file to change the name. Then install pvapy after.
+  - need to set nproc to 1 in yaml file for uniqueid to work with BraggNNViewer
+```sh
+  conda env create -f /home/beams/ABREWE/miniconda3/envs/environment_simEnv.yml
+  conda activate eb_adsim #or other name
+  conda install -c sveseli pvapy
+```
 ```sh
 #Ex: (specific to my home directory version):
   export PYTHONPATH=/home/beams/ABREWE/usr/edgeBragg/
   
-  pvapy-hpc-consumer     --input-channel=abrewe:image:adsim   
-  --output-channel=abrewe:*:output     --control-channel=abrewe:*:control     
-  --status-channel=abrewe:*:status     
-  --processor-file=/home/beams/ABREWE/usr/edgeBragg/braggNNInferImageProcessor.py     
-  --processor-class=BraggNNInferImageProcessor     
-  --processor-args='{"configFile" : "/home/beams/ABREWE/usr/edgeBragg/config/sim.sf.yaml"}'     
+  pvapy-hpc-consumer     --input-channel=abrewe:image:adsim   \
+  --output-channel=abrewe:*:output     --control-channel=abrewe:*:control     \
+  --status-channel=abrewe:*:status     \
+  --processor-file=/home/beams/ABREWE/usr/edgeBragg/braggNNInferImageProcessor.py     \
+  --processor-class=BraggNNInferImageProcessor     \
+  --processor-args='{"configFile" : "/home/beams/ABREWE/usr/edgeBragg/config/sim.sf.yaml"}'     \
   --report-period=10     --log-level=DEBUG
 ```
 ```sh
@@ -65,5 +72,6 @@ $ pvapy-hpc-consumer \
 ```
 ![example](https://user-images.githubusercontent.com/106117997/214919115-b9ec8672-4dbd-4caf-a7ad-deb88fd11923.png)
 
-  
+ 
+ 
 
