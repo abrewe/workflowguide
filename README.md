@@ -9,6 +9,7 @@ to use python in my conda environment
   - Can put a usercalc pv name into PV Name: sends % of the patches from one frame that were 
   - located in ABREWE home directory ImageJ, run ImageJ there to access plugin (in folder EPICS_areaDetector) 
   - Montage Sizing: "user set", with Montage Dim field set to n, makes an n x n montage. 
+  - Looses frames.
 ```shell
      cd home/beams/ABREWE/ImageJProjects/ImageJ
      
@@ -19,19 +20,25 @@ to use python in my conda environment
   - In /home/beams/ABREWE/usr/pvaPy/pvapy/cli
   - modified to read in files (tiff, cbf tested, some GE files give incorrect size error) with fabio and streams frames to given channel name. 
      Ignores files it cannot read. Uses fabio. 
-  - adSimServer reportedly keeps up with fps well (tried up to 100fps), but EPICS_NTNDA_Viewer does not seem to get them 
-  faster than 18fps or so. Fps of adSimServer matches up until 18 or so, any higher has problems. Not sure which end the problem's on. 
+   - only loads files with single frames for now. 
+  - adSimServer worked with EPICS_NTNDA_VIEWER up 500 fps with **randomly generated frames**, but does not seem to publish cbf files any faster than 18fps or so from /home/beams1/AMICELI/GMCA-Eiger-Pilatus-Data/eiger_M13/. Fps of adSimServer matches up until 18fps or so, any higher has problems. I'm thinking it's the larger image size, not sure . . . I can view/get higher frame rates (viewing with the NTNDA viewer) with smaller images.
+  - adSimServer is set automatically right now to only try and load at most 100 frames at a time. I have loaded all files in /home/beams1/AMICELI/GMCA-Eiger-Pilatus-Data/eiger_M13/. It just takes a while. Number of files loaded can be changed for now with -nf.
 ```shell
 cd /home/beams/ABREWE/usr/pvaPy/pvapy/cli
 
-/home/beams/ABREWE/miniconda3/envs/simEnv/bin/python ./adSimServer.py -id /home/beams1/AMICELI/GMCA-Eiger-Pilatus-Data/eiger_M13/ -cn abrewe:image:adsim -aff=1
+#reads in cbf files
+/home/beams/ABREWE/miniconda3/envs/simEnv/bin/python ./adSimServer.py -id /home/beams1/AMICELI/GMCA-Eiger-Pilatus-Data/eiger_M13/ -cn abrewe:image:adsim -aff=1 -fps=10 -nf=50
+
+#random
+/home/beams/ABREWE/miniconda3/envs/simEnv/bin/python ./adSimServer.py -cn abrewe:image:adsim -fps=10
+
 ```
 
 - edgebragg
   - might need a conda environment for this to work properly - if so see below 
   - need to set nproc to 1 for uniqueid to work with BraggNNViewer
 ```sh
-Ex (specific to my home directory version):
+#Ex: (specific to my home directory version):
   export PYTHONPATH=/home/beams/ABREWE/usr/edgeBragg/
   
   pvapy-hpc-consumer     --input-channel=abrewe:image:adsim   
@@ -42,8 +49,8 @@ Ex (specific to my home directory version):
   --processor-args='{"configFile" : "/home/beams/ABREWE/usr/edgeBragg/config/sim.sf.yaml"}'     
   --report-period=10     --log-level=DEBUG
 ```
-General ex:
 ```sh
+#General ex:
 $ export PYTHONPATH=/path/to/edgeBragg
 $ pvapy-hpc-consumer \
     --input-channel=pvapy:image \
