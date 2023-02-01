@@ -38,12 +38,14 @@ cd /home/beams/ABREWE/usr/pvaPy/pvapy/cli
 
 - edgebragg
   - I'm sure there is a way to run this without needing a conda environment but for now, you may need to create a clone of my simEnv conda env. There is a yml file that can be used to create a conda environment with all the packages I have in simEnv. (/home/beams/ABREWE/miniconda3/envs/environment_simEnv.yml) will create a conda environment called eb_adsim, change name in yml file to change the name. Then install pvapy after.
-  - need to set nproc to 1 in yaml file for uniqueid to work with BraggNNViewer
 ```sh
   conda env create -f /home/beams/ABREWE/miniconda3/envs/environment_simEnv.yml
   conda activate eb_adsim #or other name
   conda install -c sveseli pvapy
 ```
+
+- need to set nproc to 1 in config yaml file for uniqueid to work with BraggNNViewer (/home/beams/ABREWE/usr/edgeBragg/config/sim.sf.yaml for example below - already set to 1)
+
 ```sh
 #Ex: (specific to my home directory version):
   export PYTHONPATH=/home/beams/ABREWE/usr/edgeBragg/
