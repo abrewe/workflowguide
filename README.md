@@ -38,6 +38,7 @@ cd /home/beams/ABREWE/usr/pvaPy/pvapy/cli
 
 - edgebragg
   - I'm sure there is a way to run this without needing a conda environment but for now, you may need to create a clone of my simEnv conda env. There is a yml file that can be used to create a conda environment with all the packages I have in simEnv. (/home/beams/ABREWE/miniconda3/envs/environment_simEnv.yml) will create a conda environment called eb_adsim, change name in yml file to change the name. Then install pvapy after.
+  - Have been reported issues of yaml file not installing all of the packages. May have to pip install fabio, opencv-python, pyyaml, pyzmq
 ```sh
   conda env create -f /home/beams/ABREWE/miniconda3/envs/environment_simEnv.yml
   conda activate eb_adsim #or other name if yml file was edited
